@@ -1,11 +1,12 @@
 /* eslint-disable no-use-before-define */
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text, Button } from 'react-native';
 import { Provider as PaperProvider, DefaultTheme } from 'react-native-paper';
 import LoginScreen from './src/screens/LoginScreen';
+import 'react-native-gesture-handler';
 
-export default function App() {
+export default function App({ navigation }) {
   return (
     <PaperProvider theme={theme}>
       <View style={styles.container}>
