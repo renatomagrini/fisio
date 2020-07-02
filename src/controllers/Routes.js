@@ -1,7 +1,12 @@
 import * as React from 'react';
-import { View, Text, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { BlurView } from 'expo-blur';
+import { StyleSheet, StatusBar } from 'react-native';
+
+import { Provider as PaperProvider } from 'react-native-paper';
+
+import { theme } from '../../styles';
 
 import teste from '../screens/teste1';
 import teste2 from '../screens/teste2';
@@ -10,15 +15,24 @@ import Main from '../screens/MainScreen';
 
 const Stack = createStackNavigator();
 
+const thema = {
+  headerTintColor: '#006b3f',
+  headerStyle: { backgroundColor: 'white' },
+  headerTitleAlign: 'center',
+};
+
 function Router() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Main" component={Main} />
-        <Stack.Screen name="teste2" component={teste2} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <PaperProvider theme={theme}>
+      <StatusBar style="auto" />
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Login1" component={Login} options={thema} />
+          <Stack.Screen name="Main" component={Main} options={thema} />
+          <Stack.Screen name="teste2" component={teste2} options={thema} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </PaperProvider>
   );
 }
 

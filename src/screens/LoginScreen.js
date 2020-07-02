@@ -1,38 +1,53 @@
 import React, { useState } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
 import {
   Card,
   Button,
   Provider as PaperProvider,
   DefaultTheme,
+  Text,
 } from 'react-native-paper';
 import TextInputComponent from '../components/TextInputComponent';
 import { efetuaLogin } from '../controllers/Login';
+import { theme } from '../../styles';
 
 export default function LoginScreen({ navigation }) {
   const [textMsg, setTextMsg] = React.useState('');
 
   const logar = () => {
     const valida = efetuaLogin('texto');
-    if (valida) navigation.navigate('Main');
-    else setTextMsg(`Não logou`);
+    if (valida == 'sucess') {
+      navigation.navigate('Main');
+      setTextMsg('');
+    } else if (valida == 'error') setTextMsg(`Erro no Login`);
+    else if (valida == 'errorPassword') setTextMsg(`Erro na Senha`);
   };
 
   return (
     <PaperProvider theme={theme}>
       <View style={styles.container}>
-        <Text style={{ fontSize: 40 }}>Fisio</Text>
-        <View style={styles.secondView}>
-          <Card>
-            <TextInputComponent label="Email" />
-            <Text> </Text>
-            <Text> </Text>
+        <Image
+          style={{
+            width: 150,
+            height: 175,
+            opacity: 0.5,
 
-            <TextInputComponent label="Password" />
-            <Text> </Text>
-            <Text style={{ color: 'red' }}>{textMsg}</Text>
-            <Text> </Text>
-          </Card>
+            top: -50,
+          }}
+          resizeMode="cover"
+          source={require('../../img/fisio.png')}
+        />
+
+        <View style={styles.secondView}>
+          <TextInputComponent label="E-mail" />
+          <Text> </Text>
+          <Text> </Text>
+
+          <TextInputComponent label="Password" />
+          <Text> </Text>
+          <Text style={{ color: 'red' }}>{textMsg}</Text>
+          <Text> </Text>
+
           <Button icon="login" mode="outlined" onPress={logar}>
             Logar
           </Button>
@@ -52,13 +67,9 @@ const styles = StyleSheet.create({
   secondView: {
     width: '95%',
   },
-});
-
-const theme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: 'tomato',
-    accent: 'yellow',
+  imgBackground: {
+    width: '100%',
+    height: '100%',
+    flex: 1,
   },
-};
+});
