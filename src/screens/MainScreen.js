@@ -4,5 +4,5 @@ import { getId, getNome } from '../../global';
 
 export default function MainScreen({ navigation }) {
   const nome = getNome();
-  return <Text>{nome}</Text>;
+  return <Text>oi</Text>;
 }

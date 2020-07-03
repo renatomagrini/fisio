@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { StatusBar } from 'react-native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { StatusBar, View, Button } from 'react-native';
 
 import { Provider as PaperProvider } from 'react-native-paper';
 
@@ -13,6 +14,7 @@ import Login from '../screens/LoginScreen';
 import Main from '../screens/MainScreen';
 
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 const thema = {
   headerTintColor: '#006b3f',
@@ -25,11 +27,15 @@ function Router() {
     <PaperProvider theme={theme}>
       <StatusBar style="auto" />
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Login" component={Login} options={thema} />
-          <Stack.Screen name="Main" component={Main} options={thema} />
-          <Stack.Screen name="teste2" component={teste2} options={thema} />
-        </Stack.Navigator>
+        <Drawer.Navigator initialRouteName="Sair">
+          <Drawer.Screen name="Main" component={Main} options={thema} />
+          <Drawer.Screen name="teste2" component={teste2} options={thema} />
+          <Drawer.Screen
+            name="Sair"
+            component={Login}
+            options={{ gestureEnabled: false }}
+          />
+        </Drawer.Navigator>
       </NavigationContainer>
     </PaperProvider>
   );
