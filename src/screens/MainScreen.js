@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Text } from 'react-native-paper';
+import { getId, getNome } from '../../global';
 
-const MyComponent = () => <Text>Tela incial</Text>;
-
-export default MyComponent;
+export default function MainScreen({ navigation }) {
+  const nome = getNome();
+  return <Text>{nome}</Text>;
+}

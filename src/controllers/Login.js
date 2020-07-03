@@ -1,39 +1,30 @@
 import React, { useEffect } from 'react';
 import { setData, getId, getNome } from '../../global';
 
-let retorno = 'sucess';
+let retorno = '1';
 
-const getResults = async () => {
-  const rota = 'http://localhost:3000/login';
+export const getResults = async (username, password) => {
+  const rota = 'http://ec2-18-215-253-190.compute-1.amazonaws.com:3000/login';
 
-  fetch(rota, {
+  const consulta = await fetch(rota, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      username: 'renato',
-      password: '123456',
+      username,
+      password,
     }),
   })
     .then((response) => response.json())
     .then((responseJson) => {
-      console.log(responseJson);
-
-      // setData(responseJson.idEmpregado, responseJson.nome);
-      // console.log(getId());
-      // console.log(getNome());
+      setData(responseJson.idEmpregado, responseJson.nome);
       retorno = 'sucess';
     })
     .catch((error) => {
       retorno = 'error';
     });
-};
 
-export const efetuaLogin = (props) => {
-  // const result = getResults();
-
-  if (retorno == 'sucess') return 'sucess';
-  if (retorno == 'error') return 'error';
+  return retorno;
 };

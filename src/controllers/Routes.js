@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { BlurView } from 'expo-blur';
-import { StyleSheet, StatusBar } from 'react-native';
+import { StatusBar } from 'react-native';
 
 import { Provider as PaperProvider } from 'react-native-paper';
 
@@ -27,7 +26,7 @@ function Router() {
       <StatusBar style="auto" />
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Login1" component={Login} options={thema} />
+          <Stack.Screen name="Login" component={Login} options={thema} />
           <Stack.Screen name="Main" component={Main} options={thema} />
           <Stack.Screen name="teste2" component={teste2} options={thema} />
         </Stack.Navigator>

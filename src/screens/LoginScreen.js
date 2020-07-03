@@ -1,26 +1,38 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import {
-  Card,
   Button,
   Provider as PaperProvider,
-  DefaultTheme,
   Text,
+  TextInput,
 } from 'react-native-paper';
-import TextInputComponent from '../components/TextInputComponent';
-import { efetuaLogin } from '../controllers/Login';
+import { getResults } from '../controllers/Login';
 import { theme } from '../../styles';
 
 export default function LoginScreen({ navigation }) {
   const [textMsg, setTextMsg] = React.useState('');
+  const [textMail, setTextMail] = React.useState('renato');
+  const [textPassword, setTextPassword] = React.useState('123456');
 
   const logar = () => {
-    const valida = efetuaLogin('texto');
-    if (valida == 'sucess') {
-      navigation.navigate('Main');
-      setTextMsg('');
-    } else if (valida == 'error') setTextMsg(`Erro no Login`);
-    else if (valida == 'errorPassword') setTextMsg(`Erro na Senha`);
+    getResults(textMail, textPassword).then((resposta) => {
+      if (resposta == 'sucess') {
+        navigation.navigate('Main');
+        setTextMail('');
+        setTextMsg('');
+      } else if (resposta == 'error') {
+        setTextMsg(`Erro no Login`);
+      } else if (resposta == 'errorPassword') setTextMsg(`Erro na Senha`);
+
+      setTextPassword('');
+    });
+  };
+
+  const handleChangeMail = (event) => {
+    setTextMail(event.nativeEvent.text);
+  };
+  const handleChangePassword = (event) => {
+    setTextPassword(event.nativeEvent.text);
   };
 
   return (
@@ -39,11 +51,22 @@ export default function LoginScreen({ navigation }) {
         />
 
         <View style={styles.secondView}>
-          <TextInputComponent label="E-mail" />
+          <TextInput
+            label="User"
+            mode="outlined"
+            value={textMail}
+            onChange={handleChangeMail}
+          />
           <Text> </Text>
           <Text> </Text>
 
-          <TextInputComponent label="Password" />
+          <TextInput
+            label="Password"
+            mode="outlined"
+            value={textPassword}
+            onChange={handleChangePassword}
+            secureTextEntry
+          />
           <Text> </Text>
           <Text style={{ color: 'red' }}>{textMsg}</Text>
           <Text> </Text>
