@@ -1,4 +1,5 @@
 import { DefaultTheme } from 'react-native-paper';
+import { StyleSheet } from 'react-native';
 
 export const theme = {
   ...DefaultTheme,
@@ -12,3 +13,13 @@ export const theme = {
     // placeholder: 'red',
   },
 };
+
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 20,
+    //  textAlign: 'center',
+    alignItems: 'center',
+    // justifyContent: 'center',
+  },
+});

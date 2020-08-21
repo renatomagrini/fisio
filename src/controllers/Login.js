@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import { setData, getId, getNome } from '../../global';
+import { setData, getId, getNome, getUrl } from '../../global';
 
 let retorno = 'sucess';
 
 export const getResults = async (username, password) => {
-  return retorno; // testando sem coneccao
-  const rota = 'http://ec2-18-215-253-190.compute-1.amazonaws.com:3000/login';
+  // return retorno; // testando sem conecca
+  const rota = `${getUrl()}/login`;
 
   const consulta = await fetch(rota, {
     method: 'POST',
