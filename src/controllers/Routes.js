@@ -8,16 +8,17 @@ import { Provider as PaperProvider } from 'react-native-paper';
 
 import { theme } from '../../styles';
 
+import Pacientes from '../screens/PacientesScreen';
 import teste from '../screens/teste1';
 import teste2 from '../screens/teste2';
 import Login from '../screens/LoginScreen';
 import Main from '../screens/MainScreen';
 import Agenda from '../screens/AgendaScreen';
-import Pacientes from '../screens/PacientesScreen';
 import Atendimentos from '../screens/AtendimentosScreen';
+import DetalhePaciente from '../screens/DetalhePacienteScrren';
 
-const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
+const SettingsStack = createStackNavigator();
 
 const thema = {
   headerTintColor: '#006b3f',
@@ -30,8 +31,8 @@ export default function Router() {
     <PaperProvider theme={theme}>
       <StatusBar style="auto" />
       <NavigationContainer>
-        <Drawer.Navigator initialRouteName="Sair">
-        <Drawer.Screen name="Main" component={Main} options={thema} />
+        <Drawer.Navigator initialRouteName="Pacientes">
+          <Drawer.Screen name="Main" component={Main} options={thema} />
           <Drawer.Screen name="Agenda" component={Agenda} options={thema} />
           <Drawer.Screen
             name="Atendimentos"
@@ -43,9 +44,16 @@ export default function Router() {
             component={Pacientes}
             options={thema}
           />
+
           <Drawer.Screen
             name="Sair"
             component={Login}
+            options={{ gestureEnabled: false }}
+          />
+
+          <SettingsStack.Screen
+            name="Detalhes"
+            component={DetalhePaciente}
             options={{ gestureEnabled: false }}
           />
         </Drawer.Navigator>
