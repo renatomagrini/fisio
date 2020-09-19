@@ -15,11 +15,12 @@ export default function PacienteScreen({ navigation }) {
     navigation.navigate('Detalhes', { item });
   };
 
-  const atendimentoPaciente = (id) => {
+  const atendimentoPaciente = (id, item) => {
+    navigation.navigate('HistoricoPaciente', { item });
     console.log(id);
   };
 
-  const Item = ({ nome, endereco, id, item }) => (
+  const Item = ({ nome, id, item }) => (
     <View style={styles.item}>
       <Text style={styles.pacienteName}>{nome}</Text>
       <View style={styles.butao}>
@@ -31,7 +32,7 @@ export default function PacienteScreen({ navigation }) {
         <Button
           icon="ballot-outline"
           mode="Contained button"
-          onPress={() => atendimentoPaciente(id)}
+          onPress={() => atendimentoPaciente(id, item)}
         />
       </View>
     </View>

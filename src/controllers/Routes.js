@@ -16,6 +16,7 @@ import Main from '../screens/MainScreen';
 import Agenda from '../screens/AgendaScreen';
 import Atendimentos from '../screens/AtendimentosScreen';
 import DetalhePaciente from '../screens/DetalhePacienteScrren';
+import HistoricoPaciente from '../screens/HistoricoAtendimentoScreen';
 
 const Drawer = createDrawerNavigator();
 const SettingsStack = createStackNavigator();
@@ -54,6 +55,11 @@ export default function Router() {
           <SettingsStack.Screen
             name="Detalhes"
             component={DetalhePaciente}
+            options={{ gestureEnabled: false }}
+          />
+          <SettingsStack.Screen
+            name="HistoricoPaciente"
+            component={HistoricoPaciente}
             options={{ gestureEnabled: false }}
           />
         </Drawer.Navigator>

@@ -37,7 +37,22 @@ export default function DetalhePaciente({ navigation, route }) {
               <B>Idade:</B> {item.idade}
             </Paragraph>
             <Paragraph>
+              <B>Nascimento:</B>
+            </Paragraph>
+            <Paragraph>
+              <B>Telefone:</B>
+            </Paragraph>
+            <Paragraph>
+              <B>Celular:</B>
+            </Paragraph>
+            <Paragraph>
               <B>Endereço:</B> {item.endereco}
+            </Paragraph>
+            <Paragraph>
+              <B>Cep:</B>
+            </Paragraph>
+            <Paragraph>
+              <B>E-mail:</B>
             </Paragraph>
             <Paragraph>
               <B>lesão:</B> {item.lesao}
@@ -63,29 +78,11 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
   },
-  butao: {
-    flexDirection: 'row',
-  },
+
   fontBold: {
     fontWeight: 'bold',
   },
 
-  item: {
-    paddingHorizontal: 15,
-    height: 55,
-    // backgroundColor: '#Azure',
-    borderWidth: 0.5,
-    borderColor: 'tomato',
-
-    // flex
-    alignItems: 'center',
-    // justifyContent: 'space-around'
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  pacienteName: {
-    fontSize: 20,
-  },
   title: {
     fontSize: 30,
   },
