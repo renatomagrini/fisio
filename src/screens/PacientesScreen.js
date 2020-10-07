@@ -1,14 +1,20 @@
 import React, { useEffect } from 'react';
-import { View, StyleSheet, FlatList, StatusBar } from 'react-native';
-import { Button, Provider as PaperProvider, Text } from 'react-native-paper';
+import { View, StyleSheet, FlatList, StatusBar, Image } from 'react-native';
+import {
+  Button,
+  Provider as PaperProvider,
+  Text,
+  ActivityIndicator,
+} from 'react-native-paper';
 import { getPacientes } from '../controllers/Pacientes';
 import { theme } from '../../styles';
 
 export default function PacienteScreen({ navigation }) {
   const [pacientes, setPacientes] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState([]);
 
   useEffect(() => {
-    getPacientes(1).then(setPacientes).then(console.log);
+    getPacientes(1).then(setPacientes).then();
   }, []);
 
   const consultaPaciente = (id, item) => {
@@ -20,9 +26,17 @@ export default function PacienteScreen({ navigation }) {
     console.log(id);
   };
 
-  const Item = ({ nome, id, item }) => (
+  const Item = ({ nome, id, item, img }) => (
     <View style={styles.item}>
+      <Image
+        style={styles.tinyLogo}
+        source={{
+          uri: img,
+        }}
+      />
+
       <Text style={styles.pacienteName}>{nome}</Text>
+      {setIsLoading(false)}
       <View style={styles.butao}>
         <Button
           icon="account"
@@ -44,6 +58,7 @@ export default function PacienteScreen({ navigation }) {
       endereco={item.endereco}
       id={item.idPaciente}
       item={item}
+      img={item.img}
     />
   );
 
@@ -52,6 +67,8 @@ export default function PacienteScreen({ navigation }) {
       <View style={styles.viewTitle}>
         <Text style={styles.title}>Pacientes</Text>
       </View>
+      {isLoading ? <ActivityIndicator /> : null}
+
       <View style={styles.container}>
         <FlatList
           data={pacientes}
@@ -73,17 +90,18 @@ const styles = StyleSheet.create({
   },
 
   item: {
-    paddingHorizontal: 15,
+    paddingHorizontal: 12,
     height: 55,
-    // backgroundColor: '#Azure',
     borderWidth: 0.5,
     borderColor: 'tomato',
-
-    // flex
     alignItems: 'center',
     // justifyContent: 'space-around'
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  tinyLogo: {
+    width: 52,
+    height: 52,
   },
   pacienteName: {
     fontSize: 20,

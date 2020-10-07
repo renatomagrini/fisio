@@ -7,7 +7,6 @@ import {
   Title,
   Paragraph,
 } from 'react-native-paper';
-import { getId, getNome } from '../../global';
 import { theme } from '../../styles';
 
 export default function DetalhePaciente({ navigation, route }) {
@@ -24,11 +23,11 @@ export default function DetalhePaciente({ navigation, route }) {
         <Text style={styles.title}>Detalhes do Paciente</Text>
       </View>
       <View style={styles.container}>
-        <Card>
+        <Card style={styles.cardCenter}>
           <Card.Cover
+            style={styles.img}
             source={{
-              uri:
-                'https://images.pexels.com/photos/3777943/pexels-photo-3777943.jpeg?cs=srgb&dl=pexels-andrea-piacquadio-3777943.jpg&fm=jpg', // por emquanto esta fixo
+              uri: item.img,
             }}
           />
           <Card.Content>
@@ -37,22 +36,19 @@ export default function DetalhePaciente({ navigation, route }) {
               <B>Idade:</B> {item.idade}
             </Paragraph>
             <Paragraph>
-              <B>Nascimento:</B>
+              <B>Telefone:</B> {item.telefone}
             </Paragraph>
             <Paragraph>
-              <B>Telefone:</B>
-            </Paragraph>
-            <Paragraph>
-              <B>Celular:</B>
+              <B>Celular:</B> {item.celular}
             </Paragraph>
             <Paragraph>
               <B>Endereço:</B> {item.endereco}
             </Paragraph>
             <Paragraph>
-              <B>Cep:</B>
+              <B>Cep:</B> {item.cep}
             </Paragraph>
             <Paragraph>
-              <B>E-mail:</B>
+              <B>E-mail:</B> {item.email}
             </Paragraph>
             <Paragraph>
               <B>lesão:</B> {item.lesao}
@@ -85,6 +81,14 @@ const styles = StyleSheet.create({
 
   title: {
     fontSize: 30,
+  },
+  cardCenter: {
+    alignItems: 'center',
+  },
+  img: {
+    width: 250,
+    marginTop: 3,
+    marginEnd: 3,
   },
   viewTitle: {
     fontSize: 30,

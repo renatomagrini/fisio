@@ -6,12 +6,14 @@ import {
   Card,
   Title,
 } from 'react-native-paper';
-import { getId, getNome } from '../../global';
 import { getHistorico } from '../controllers/Historico';
 import { theme } from '../../styles';
 
-export default function HistoricoAtendimento({ navigation }) {
+export default function HistoricoAtendimento({ navigation, route }) {
   const [historico, setHistorico] = React.useState([]);
+  const { item } = route.params;
+
+  console.log(item.nome);
 
   useEffect(() => {
     getHistorico().then(setHistorico).then(console.log);
