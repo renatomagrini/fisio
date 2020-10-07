@@ -13,10 +13,8 @@ export default function HistoricoAtendimento({ navigation, route }) {
   const [historico, setHistorico] = React.useState([]);
   const { item } = route.params;
 
-  console.log(item.nome);
-
   useEffect(() => {
-    getHistorico().then(setHistorico).then(console.log);
+    getHistorico(item.idPaciente).then(setHistorico).then(console.log);
   }, []);
 
   const Item = ({ nome }) => (

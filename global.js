@@ -1,9 +1,9 @@
 import React from 'react';
 
-let idEmpregado = null;
+let idEmpregado = 0;
 let NomeEmpregado = null;
 
-const url = 'https://backend-fisio.herokuapp.com';
+const url = 'https://fisiobackend.herokuapp.com';
 
 export function setData(id, nome) {
   idEmpregado = id;

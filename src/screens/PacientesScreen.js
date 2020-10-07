@@ -14,7 +14,7 @@ export default function PacienteScreen({ navigation }) {
   const [isLoading, setIsLoading] = React.useState([]);
 
   useEffect(() => {
-    getPacientes(1).then(setPacientes).then();
+    getPacientes().then(setPacientes).then();
   }, []);
 
   const consultaPaciente = (id, item) => {
