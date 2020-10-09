@@ -5,6 +5,7 @@ import {
   Provider as PaperProvider,
   Text,
   ActivityIndicator,
+  Avatar,
 } from 'react-native-paper';
 import { getPacientes } from '../controllers/Pacientes';
 import { theme } from '../../styles';
@@ -28,13 +29,7 @@ export default function PacienteScreen({ navigation }) {
 
   const Item = ({ nome, id, item, img }) => (
     <View style={styles.item}>
-      <Image
-        style={styles.tinyLogo}
-        source={{
-          uri: img,
-        }}
-      />
-
+      <Avatar.Image size={50} source={{ uri: img }} />
       <Text style={styles.pacienteName}>{nome}</Text>
       {setIsLoading(false)}
       <View style={styles.butao}>

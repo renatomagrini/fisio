@@ -17,6 +17,7 @@ import Agenda from '../screens/AgendaScreen';
 import Atendimentos from '../screens/AtendimentosScreen';
 import DetalhePaciente from '../screens/DetalhePacienteScrren';
 import HistoricoPaciente from '../screens/HistoricoAtendimentoScreen';
+import NovoAtendimento from '../screens/NovoAtendimentoScreen';
 
 const Drawer = createDrawerNavigator();
 const SettingsStack = createStackNavigator();
@@ -60,6 +61,11 @@ export default function Router() {
           <SettingsStack.Screen
             name="HistoricoPaciente"
             component={HistoricoPaciente}
+            options={{ gestureEnabled: false }}
+          />
+          <SettingsStack.Screen
+            name="NovoAtendimento"
+            component={NovoAtendimento}
             options={{ gestureEnabled: false }}
           />
         </Drawer.Navigator>
