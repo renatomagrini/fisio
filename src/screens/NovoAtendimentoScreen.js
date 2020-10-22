@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Image, StatusBar, Picker } from 'react-native';
+import { View, StyleSheet, Alert } from 'react-native';
 import {
   Provider as PaperProvider,
   Text,
@@ -9,6 +9,7 @@ import {
   Button,
 } from 'react-native-paper';
 import { getResults } from '../controllers/Login';
+import { postAtendimento } from '../controllers/NovoAendimento';
 import { theme } from '../../styles';
 
 export default function NovoAtendimento({ navigation, route }) {
@@ -18,16 +19,52 @@ export default function NovoAtendimento({ navigation, route }) {
   const [atendimento, setAtendimento] = React.useState('');
   const progressoEvolucao = item.evolucao / 100;
 
+  const alerta = (msg) => {
+    Alert.alert(
+      'Erro',
+      msg,
+      [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
+      { cancelable: false }
+    );
+  };
+
   const salvar = () => {
     if (novaEvolucao == '') {
       console.log('evolucao ta em branco');
+      alerta('Campo Evolução esta em branco.');
+      return;
+    }
+    if (novaEvolucao >= 101) {
+      console.log('evolução nao esta entre 0 a 100');
+      alerta('Evolução deve ficar entre 0 a 100!');
+      return;
     }
     if (resumo == '') {
       console.log('resumo ta em branco');
+      alerta('Campo Resumo esta em branco.');
+      return;
     }
     if (atendimento == '') {
       console.log('atendimento ta em branco');
+      alerta('Campo Atendimento esta em branco.');
+      return;
     }
+    console.log('esta tudo certo');
+    postAtendimento(item.idPaciente, novaEvolucao, resumo, atendimento);
+
+    Alert.alert(
+      'Alerta',
+      'Tudo certo, gostaria de salvarr atendimento?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        { text: 'Sim', onPress: () => postAtendimento() },
+      ],
+      { cancelable: false }
+    );
   };
 
   return (
@@ -65,6 +102,8 @@ export default function NovoAtendimento({ navigation, route }) {
           label="Atendimneto"
           value={atendimento}
           onChangeText={(atendimento) => setAtendimento(atendimento)}
+          multiline
+          numberOfLines={7}
         />
       </View>
       <View style={styles.btn}>
@@ -104,7 +143,6 @@ const styles = StyleSheet.create({
   fontBold: {
     fontWeight: 'bold',
   },
-
   title: {
     fontSize: 30,
   },
