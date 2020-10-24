@@ -11,7 +11,6 @@ import { theme } from '../../styles';
 
 export default function DetalhePaciente({ navigation, route }) {
   const { item } = route.params;
-  console.log(item);
 
   const B = (props) => (
     <Text style={{ fontWeight: 'bold' }}>{props.children}</Text>

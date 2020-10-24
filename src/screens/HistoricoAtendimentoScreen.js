@@ -1,12 +1,17 @@
 import React, { useEffect } from 'react';
-import { View, StyleSheet, StatusBar, FlatList } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  StatusBar,
+  FlatList,
+  BackHandler,
+} from 'react-native';
 import {
   Provider as PaperProvider,
   Text,
   Card,
-  Title,
-  ActivityIndicator,
   FAB,
+  ActivityIndicator,
 } from 'react-native-paper';
 import { getHistorico } from '../controllers/Historico';
 import { theme } from '../../styles';
@@ -17,10 +22,8 @@ export default function HistoricoAtendimento({ navigation, route }) {
   const { item } = route.params;
 
   useEffect(() => {
-    setHistorico(null);
-    console.log('Entrei aqui na use');
-    getHistorico(item.idPaciente).then(setHistorico).then(console.log);
-  }, []);
+    getHistorico(item.idPaciente).then(setHistorico);
+  }, [item]);
 
   const novoAtendimento = () => {
     navigation.navigate('NovoAtendimento', { item });
@@ -58,6 +61,7 @@ export default function HistoricoAtendimento({ navigation, route }) {
       <View style={styles.viewTitle}>
         <Text style={styles.title}>Historico de Atendimento</Text>
       </View>
+
       <View style={styles.container}>
         <FlatList
           data={historico}
@@ -65,6 +69,7 @@ export default function HistoricoAtendimento({ navigation, route }) {
           keyExtractor={(item) => item.id}
         />
       </View>
+
       <FAB
         style={styles.fab}
         big

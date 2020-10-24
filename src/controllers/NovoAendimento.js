@@ -10,7 +10,7 @@ export const postAtendimento = async (
   // return retorno; // testando sem conecca
   // const rota = `${getUrl()}/login`;
 
-  console.log(`id ${idPaciente}evolução ${evolucao}`);
+  console.log(`id ${idPaciente} evolução ${evolucao}`);
 
   /*
   const consulta = await fetch(rota, {

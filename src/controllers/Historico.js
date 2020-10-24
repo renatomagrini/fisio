@@ -3,7 +3,7 @@ import { setData, getId, getNome, getUrl } from '../../global';
 
 export const getHistorico = async (paciente) => {
   // return retorno; // testando sem conecca
-  console.log(`este devia ser o paciente${paciente}`);
+  console.log('to sendo chamado');
   const retorno = [];
   const rota = `${getUrl()}/atendimento_pac_emp/${paciente}/${getId()}`;
 

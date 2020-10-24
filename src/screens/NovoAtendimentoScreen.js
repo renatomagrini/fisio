@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Alert } from 'react-native';
+import { View, StyleSheet, Alert, BackHandler, CheckBox } from 'react-native';
 import {
   Provider as PaperProvider,
   Text,
@@ -7,6 +7,7 @@ import {
   Colors,
   TextInput,
   Button,
+  Checkbox,
 } from 'react-native-paper';
 import { getResults } from '../controllers/Login';
 import { postAtendimento } from '../controllers/NovoAendimento';
@@ -16,8 +17,23 @@ export default function NovoAtendimento({ navigation, route }) {
   const { item } = route.params;
   const [novaEvolucao, setNovaEvolucao] = React.useState('');
   const [resumo, setResumo] = React.useState('');
+  const [dia, setDia] = React.useState('');
+  const [mes, setMes] = React.useState('');
+  const [ano, setAno] = React.useState('');
+  const [checked, setChecked] = React.useState(false);
   const [atendimento, setAtendimento] = React.useState('');
+  const [msgErro, setMsgErro] = React.useState('teste');
   const progressoEvolucao = item.evolucao / 100;
+
+  // limpa os campos
+  const clear = () => {
+    setAno('');
+    setMes('');
+    setDia('');
+    setAtendimento('');
+    setNovaEvolucao('');
+    setResumo('');
+  };
 
   const alerta = (msg) => {
     Alert.alert(
@@ -67,6 +83,9 @@ export default function NovoAtendimento({ navigation, route }) {
     );
   };
 
+  // captura o volta e limpa os campos
+  BackHandler.addEventListener('hardwareBackPress', clear);
+
   return (
     <PaperProvider theme={theme}>
       <View style={styles.viewTitle}>
@@ -106,6 +125,52 @@ export default function NovoAtendimento({ navigation, route }) {
           numberOfLines={7}
         />
       </View>
+
+      <View style={styles.checkbox}>
+        <Checkbox
+          status={checked ? 'checked' : 'unchecked'}
+          onPress={() => {
+            setChecked(!checked);
+          }}
+        />
+        <Text style={styles.checkboxText}>Possui proximo atendimento?</Text>
+      </View>
+      {console.log(checked)}
+
+      <View style={styles.data}>
+        <TextInput
+          label="Dia"
+          style={styles.campoData}
+          value={dia}
+          onChangeText={(dia) => setDia(dia)}
+          keyboardType="number-pad"
+          maxLength={2}
+        />
+        <Text> </Text>
+        <Text> </Text>
+        <TextInput
+          style={styles.campoData}
+          label="Mes"
+          value={mes}
+          onChangeText={(mes) => setMes(mes)}
+          keyboardType="number-pad"
+          maxLength={2}
+        />
+        <Text> </Text>
+        <Text> </Text>
+        <TextInput
+          style={styles.campoData}
+          label="Ano"
+          value={ano}
+          onChangeText={(ano) => setAno(ano)}
+          keyboardType="number-pad"
+          maxLength={4}
+        />
+      </View>
+      <View style={styles.container}>
+        <Text>{msgErro}</Text>
+      </View>
+
       <View style={styles.btn}>
         <Button icon="file-upload" mode="outlined" onPress={salvar}>
           Salvar
@@ -119,6 +184,22 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 10,
     alignItems: 'center',
+  },
+  data: {
+    marginTop: 20,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  checkbox: {
+    marginTop: 10,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  checkboxText: {
+    marginTop: 7,
+  },
+  campoData: {
+    width: 80,
   },
   textEvolucao: {
     marginTop: 25,
