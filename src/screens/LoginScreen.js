@@ -5,26 +5,30 @@ import {
   Provider as PaperProvider,
   Text,
   TextInput,
+  ActivityIndicator,
 } from 'react-native-paper';
 import { getResults } from '../controllers/Login';
 import { theme } from '../../styles';
 
 export default function LoginScreen({ navigation }) {
   const [textMsg, setTextMsg] = React.useState('');
-  const [textMail, setTextMail] = React.useState('renato');
+  const [textMail, setTextMail] = React.useState();
   const [textPassword, setTextPassword] = React.useState('123456');
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const logar = () => {
+    setIsLoading(true);
     getResults(textMail, textPassword).then((resposta) => {
       if (resposta == 'sucess') {
-        navigation.navigate('Main');
+        navigation.navigate('Pacientes');
         setTextMail('');
         setTextMsg('');
       } else if (resposta == 'error') {
-        setTextMsg(`Erro no Login`);
+        setTextMsg(`Usuario ou senha incorreto`);
       } else if (resposta == 'errorPassword') setTextMsg(`Erro na Senha`);
 
       setTextPassword('');
+      setIsLoading(false);
     });
   };
 
@@ -71,9 +75,13 @@ export default function LoginScreen({ navigation }) {
           <Text style={{ color: 'red' }}>{textMsg}</Text>
           <Text> </Text>
 
-          <Button icon="login" mode="outlined" onPress={logar}>
-            Logar
-          </Button>
+          {isLoading ? (
+            <ActivityIndicator />
+          ) : (
+            <Button icon="login" mode="outlined" onPress={logar}>
+              Logar
+            </Button>
+          )}
         </View>
       </View>
     </PaperProvider>

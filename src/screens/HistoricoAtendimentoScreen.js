@@ -69,7 +69,6 @@ export default function HistoricoAtendimento({ navigation, route }) {
           keyExtractor={(item) => item.id}
         />
       </View>
-
       <FAB
         style={styles.fab}
         big

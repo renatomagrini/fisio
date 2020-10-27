@@ -10,7 +10,7 @@ import {
   Checkbox,
 } from 'react-native-paper';
 import { getResults } from '../controllers/Login';
-import { postAtendimento } from '../controllers/NovoAendimento';
+import { postAtendimento } from '../controllers/NovoAtendimento';
 import { theme } from '../../styles';
 
 export default function NovoAtendimento({ navigation, route }) {
@@ -22,7 +22,13 @@ export default function NovoAtendimento({ navigation, route }) {
   const [ano, setAno] = React.useState('');
   const [checked, setChecked] = React.useState(false);
   const [atendimento, setAtendimento] = React.useState('');
-  const [msgErro, setMsgErro] = React.useState('teste');
+  const [msgErro, setMsgErro] = React.useState('');
+  const [evolucaoError, setEvolucaoError] = React.useState(false);
+  const [resumoError, setResumoError] = React.useState(false);
+  const [atendimentoError, setAtendimentoError] = React.useState(false);
+  const [diaError, setDiaError] = React.useState(false);
+  const [mesError, setMesError] = React.useState(false);
+  const [anoError, setAanoError] = React.useState(false);
   const progressoEvolucao = item.evolucao / 100;
 
   // limpa os campos
@@ -44,29 +50,54 @@ export default function NovoAtendimento({ navigation, route }) {
     );
   };
 
+  const errorClear = () => {
+    setEvolucaoError(false);
+    setResumoError(false);
+    setAtendimentoError(false);
+  };
+
   const salvar = () => {
     if (novaEvolucao == '') {
       console.log('evolucao ta em branco');
-      alerta('Campo Evolução esta em branco.');
+      setMsgErro('Campo Evolução esta em branco.');
+      setEvolucaoError(true);
       return;
     }
     if (novaEvolucao >= 101) {
       console.log('evolução nao esta entre 0 a 100');
       alerta('Evolução deve ficar entre 0 a 100!');
+      setEvolucaoError(true);
       return;
     }
+    setEvolucaoError(false);
     if (resumo == '') {
       console.log('resumo ta em branco');
-      alerta('Campo Resumo esta em branco.');
+      setMsgErro('Campo Resumo esta em branco.');
+      setResumoError(true);
       return;
     }
+    setResumoError(false);
     if (atendimento == '') {
       console.log('atendimento ta em branco');
-      alerta('Campo Atendimento esta em branco.');
+      setMsgErro('Campo Atendimento esta em branco.');
+      setAtendimentoError(true);
       return;
     }
+
+    errorClear();
+
     console.log('esta tudo certo');
-    postAtendimento(item.idPaciente, novaEvolucao, resumo, atendimento);
+
+    // salva paciente
+    postAtendimento(
+      item.idPaciente,
+      novaEvolucao,
+      resumo,
+      atendimento,
+      dia,
+      mes,
+      ano
+    );
 
     Alert.alert(
       'Alerta',
@@ -107,6 +138,7 @@ export default function NovoAtendimento({ navigation, route }) {
           value={novaEvolucao}
           onChangeText={(novaEvolucao) => setNovaEvolucao(novaEvolucao)}
           keyboardType="number-pad"
+          error={evolucaoError}
         />
       </View>
       <View style={styles.textTittle}>
@@ -114,6 +146,7 @@ export default function NovoAtendimento({ navigation, route }) {
           label="Resumo"
           value={resumo}
           onChangeText={(resumo) => setResumo(resumo)}
+          error={resumoError}
         />
       </View>
       <View style={styles.textAtendimento}>
@@ -123,6 +156,7 @@ export default function NovoAtendimento({ navigation, route }) {
           onChangeText={(atendimento) => setAtendimento(atendimento)}
           multiline
           numberOfLines={7}
+          error={atendimentoError}
         />
       </View>
 
@@ -135,7 +169,7 @@ export default function NovoAtendimento({ navigation, route }) {
         />
         <Text style={styles.checkboxText}>Possui proximo atendimento?</Text>
       </View>
-      {console.log(checked)}
+      {checked ? console.log('ticou') : console.log('disticou')}
 
       <View style={styles.data}>
         <TextInput
@@ -168,7 +202,7 @@ export default function NovoAtendimento({ navigation, route }) {
         />
       </View>
       <View style={styles.container}>
-        <Text>{msgErro}</Text>
+        <Text color={Colors.red800}>{msgErro}</Text>
       </View>
 
       <View style={styles.btn}>

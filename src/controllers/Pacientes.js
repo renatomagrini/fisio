@@ -5,7 +5,7 @@ export const getPacientes = async (id) => {
   // return retorno; // testando sem conecca
   console.log('entramos no getpaciente');
   const retorno = [];
-  const rota = `${getUrl()}/pacientes_emp/0`;
+  const rota = `${getUrl()}/pacientes_emp/${getId()}`;
 
   const response = await fetch(rota);
 
